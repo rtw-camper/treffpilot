@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TreffPilot – Dein Treffen. Einfach organisiert.</title>
-  <meta name="description" content="TreffPilot unterstützt Vereine und Veranstalter bei Anmeldung, Teilnehmerverwaltung, Rechnungen, QR-Code-Check-in und Veranstaltungsinformationen.">
+  <meta name="description" content="TreffPilot für Campertreffen, Vereine und Veranstalter: Online-Anmeldung, Teilnehmerverwaltung, freie Plätze, Rechnungen, Informationen und QR-Code-Check-in in einer zentralen Anwendung.">
   <style>
     :root{--navy:#17334f;--navy2:#10283e;--green:#50b56b;--green2:#3c9e59;--ink:#1d2732;--muted:#66717d;--bg:#f6f8fa;--card:#fff;--line:#e3e8ed}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
@@ -16,16 +16,34 @@
     section{padding:76px 0}.section-head{text-align:center;max-width:760px;margin:0 auto 40px}.section-head h2{font-size:clamp(2rem,3.5vw,3rem);color:var(--navy);margin:.2em 0}.section-head p{color:var(--muted);font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:25px;box-shadow:0 8px 26px rgba(20,45,68,.06)}.icon{width:44px;height:44px;border-radius:12px;background:#eaf7ee;color:var(--green2);display:grid;place-items:center;font-size:1.35rem;font-weight:900}.card h3{color:var(--navy);margin:16px 0 8px}.card p{color:var(--muted);margin:0}
     .soft{background:var(--bg)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:step}.step{background:#fff;border-radius:18px;padding:28px;border:1px solid var(--line)}.step:before{counter-increment:step;content:counter(step);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900}.step h3{margin:16px 0 8px;color:var(--navy)}.step p{margin:0;color:var(--muted)}
     .price{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center}.pause-badge{display:inline-flex;align-items:center;gap:10px;background:#eaf7ee;color:#246f3a;font-weight:900;padding:10px 15px;border-radius:999px;margin:6px 0 14px}.pause-badge:before{content:"⏸";font-size:1.1rem}.price-box{background:var(--navy);color:#fff;padding:34px;border-radius:22px}.price-box .amount{font-size:2.5rem;font-weight:900}.price-box p{color:#dce6ee}.pause-box{margin-top:20px;padding:18px 20px;border-radius:15px;background:rgba(80,181,107,.16);border:1px solid rgba(174,232,188,.35)}.pause-box strong{display:block;color:#bdf0c9;font-size:1.18rem;margin-bottom:4px}.pause-box .pause-amount{font-size:2rem;font-weight:900;color:#fff}.note{font-size:.92rem;color:#70808f}.bullets{display:grid;gap:12px}.bullets div{padding-left:28px;position:relative}.bullets div:before{content:"✓";position:absolute;left:0;color:var(--green2);font-weight:900}
+
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;margin-top:34px}
+    .plan-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 10px 30px rgba(20,45,68,.07);display:flex;flex-direction:column}
+    .plan-card.featured{border:2px solid var(--green);transform:translateY(-4px);box-shadow:0 16px 38px rgba(80,181,107,.16)}
+    .plan-kicker{text-transform:uppercase;letter-spacing:.1em;font-size:.76rem;font-weight:900;color:var(--green2);min-height:20px}
+    .plan-card h3{font-size:1.55rem;color:var(--navy);margin:7px 0 3px}
+    .plan-price{font-size:2.15rem;font-weight:900;color:var(--navy);margin:4px 0 14px}
+    .plan-price span{font-size:.9rem;font-weight:650;color:var(--muted)}
+    .plan-desc{color:var(--muted);min-height:54px;margin:0 0 18px}
+    .plan-features{display:grid;gap:10px;margin:0;padding:0;list-style:none;flex:1}
+    .plan-features li{position:relative;padding-left:25px;color:#43515e}
+    .plan-features li:before{content:"✓";position:absolute;left:0;color:var(--green2);font-weight:900}
+    .plan-footer{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+    .price-note{margin-top:28px;background:var(--navy);color:#fff;border-radius:20px;padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+    .price-note h3{margin:0 0 6px;font-size:1.35rem}.price-note p{margin:0;color:#dce6ee}
+    .pause-pill{background:rgba(80,181,107,.18);border:1px solid rgba(174,232,188,.35);border-radius:16px;padding:16px 20px;text-align:center;white-space:nowrap}
+    .pause-pill strong{display:block;font-size:1.7rem;color:#fff}.pause-pill span{color:#bdf0c9;font-weight:800}
+    .conditions{margin-top:18px;color:var(--muted);font-size:.94rem;text-align:center}
     .cta{background:linear-gradient(145deg,#eaf7ee,#f7fbf8);border-top:1px solid #dcebe0;border-bottom:1px solid #dcebe0}.cta-inner{text-align:center;max-width:760px;margin:auto}.cta h2{color:var(--navy);font-size:clamp(2rem,3.4vw,3rem);margin:.2em 0}.cta p{color:var(--muted);font-size:1.1rem}.email{font-weight:850;color:var(--navy)}
     footer{padding:30px 0;background:#0f2234;color:#d7e1ea}.foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}.foot a{color:#d7e1ea;text-decoration:none;margin-left:18px}.foot small{color:#aebdca}
-    @media(max-width:820px){nav a:not(.btn){display:none}.hero-grid,.price{grid-template-columns:1fr}.hero{padding-top:56px}.grid,.steps{grid-template-columns:1fr}.hero-card{max-width:560px}.brand span{font-size:1.08rem}}
+    @media(max-width:820px){nav a:not(.btn){display:none}.hero-grid,.price{grid-template-columns:1fr}.hero{padding-top:56px}.grid,.steps,.plans{grid-template-columns:1fr}.hero-card{max-width:560px}.brand span{font-size:1.08rem}.plan-card.featured{transform:none}.price-note{grid-template-columns:1fr}.pause-pill{white-space:normal}}
   </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top"><img src="assets/treffpilot-logo.png" alt="TreffPilot Logo"><span>TreffPilot</span></a>
-    <nav><a href="#funktionen">Funktionen</a><a href="#ablauf">So funktioniert's</a><a href="#preis">Konditionen</a><a class="btn" href="mailto:info@treffpilot.de?subject=Interesse%20an%20TreffPilot">Interesse melden</a></nav>
+    <nav><a href="#funktionen">Funktionen</a><a href="#ablauf">So funktioniert's</a><a href="#preis">Konditionen</a><a class="btn" href="https://treffpilotkundenadminneu.broken-poetry-5e9a.workers.dev/?demo=start">90 Min. kostenlos testen</a></nav>
   </div>
 </header>
 <main id="top">
@@ -35,7 +53,7 @@
         <div class="eyebrow">Für Vereine & Veranstalter</div>
         <h1>Dein Treffen.<br>Einfach organisiert.</h1>
         <p>TreffPilot bringt Anmeldung, Teilnehmerübersicht, freie Plätze, Rechnungen, Informationen und QR-Code-Check-in an einen Ort – übersichtlich für Veranstalter und einfach für Teilnehmer.</p>
-        <div class="actions"><a class="btn" href="mailto:info@treffpilot.de?subject=Unverbindliche%20TreffPilot-Demo">Unverbindliche Demo anfragen</a><a class="btn secondary" href="#funktionen">Funktionen ansehen</a></div>
+        <div class="actions"><a class="btn" href="https://treffpilotkundenadminneu.broken-poetry-5e9a.workers.dev/?demo=start">90 Minuten kostenlos testen</a><a class="btn secondary" href="#funktionen">Funktionen ansehen</a></div>
       </div>
       <div class="hero-card">
         <img src="assets/treffpilot-logo.png" alt="TreffPilot – Dein Treffen. Einfach organisiert.">
@@ -70,28 +88,84 @@
   </section>
 
   <section id="preis">
-    <div class="wrap price">
-      <div>
-        <div class="eyebrow" style="color:var(--green2)">Flexibel für Vereine</div>
-        <h2 style="font-size:clamp(2rem,3.4vw,3rem);color:var(--navy);margin:.25em 0">Keine Veranstaltung? Einfach pausieren.</h2>
-        <div class="pause-badge">Pausenmonat nur 5,95 €</div>
-        <div class="bullets">
-          <div>Einstieg ab 24,95 € pro aktivem Monat</div>
-          <div>In veranstaltungsfreien Monaten pausierbar</div>
-          <div>Geeignet für Treffen, Ausflüge und Vereinsveranstaltungen</div>
-        </div>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" style="color:var(--green2)">Tarife &amp; Konditionen</div>
+        <h2>Das passende Paket für dein Treffen</h2>
+        <p>Starte mit den Funktionen, die du wirklich brauchst. Alle Tarife werden monatlich abgerechnet.</p>
       </div>
-      <div class="price-box"><div>Aktiver Monat ab</div><div class="amount">24,95 €</div><p>Wenn ein Treffen, Ausflug oder eine Veranstaltung ansteht, wird TreffPilot aktiv genutzt.</p><div class="pause-box"><strong>Keine Veranstaltung?</strong><span class="pause-amount">5,95 €</span> <span>im Pausenmonat</span><br><span style="color:#dce6ee">Statt den vollen Monatspreis weiterzuzahlen.</span></div><p>Voraussetzung: mindestens drei aktive Monate innerhalb eines Jahres.</p><div class="note" style="color:#b9c8d4">Die Konditionen befinden sich in der Einführungsphase und können im Rahmen individueller Vereinbarungen angepasst werden.</div></div>
+
+      <div class="plans">
+        <article class="plan-card">
+          <div class="plan-kicker">Solider Einstieg</div>
+          <h3>Basic</h3>
+          <div class="plan-price">19,95 € <span>/ Monat</span></div>
+          <p class="plan-desc">Für Veranstalter, die Anmeldung, Teilnehmer und Abrechnung zentral organisieren möchten.</p>
+          <ul class="plan-features">
+            <li>Treffen anlegen und verwalten</li>
+            <li>Online-Anmeldung</li>
+            <li>Teilnehmerverwaltung</li>
+            <li>Kapazität und freie Plätze</li>
+            <li>Kostenpositionen und Rechnungen</li>
+            <li>Infobereich für Teilnehmer</li>
+            <li>Zahlungsbestätigung und Abrechnung</li>
+          </ul>
+          <div class="plan-footer">3 Monate Mindestlaufzeit, danach monatlich kündbar.</div>
+        </article>
+
+        <article class="plan-card featured">
+          <div class="plan-kicker">Mit QR-Check-in</div>
+          <h3>Plus</h3>
+          <div class="plan-price">22,95 € <span>/ Monat</span></div>
+          <p class="plan-desc">Für Treffen, bei denen der Einlass vor Ort schnell und übersichtlich laufen soll.</p>
+          <ul class="plan-features">
+            <li>Alle Funktionen aus Basic</li>
+            <li>Individueller QR-Code je Teilnehmer</li>
+            <li>QR-Code-Check-in vor Ort</li>
+            <li>Schneller Teilnehmerabgleich beim Einlass</li>
+          </ul>
+          <div class="plan-footer">3 Monate Mindestlaufzeit, danach monatlich kündbar.</div>
+        </article>
+
+        <article class="plan-card">
+          <div class="plan-kicker">Alle Funktionen</div>
+          <h3>Komfort</h3>
+          <div class="plan-price">25,95 € <span>/ Monat</span></div>
+          <p class="plan-desc">Für Veranstalter, die den vollständigen TreffPilot-Funktionsumfang nutzen möchten.</p>
+          <ul class="plan-features">
+            <li>Alle Funktionen aus Plus</li>
+            <li>Flohmarkt-Bereich</li>
+            <li>Technik-Bereich</li>
+            <li>Vollständiger TreffPilot-Funktionsumfang</li>
+          </ul>
+          <div class="plan-footer">3 Monate Mindestlaufzeit, danach monatlich kündbar.</div>
+        </article>
+      </div>
+
+      <div style="text-align:center;margin-top:30px">
+        <a class="btn" href="https://treffpilotkundenadminneu.broken-poetry-5e9a.workers.dev/?demo=start">TreffPilot jetzt 90 Minuten kostenlos testen</a>
+        <p class="note" style="margin-top:10px">Direkt starten – ohne vorherige Anfrage.</p>
+      </div>
+
+      <div class="price-note">
+        <div>
+          <h3>Keine Veranstaltung? Zahlpause nutzen.</h3>
+          <p>Nach der Mindestlaufzeit kannst du TreffPilot für veranstaltungsfreie Monate pausieren. Dein Kunden-Admin bleibt erreichbar, während die öffentliche App pausiert wird.</p>
+        </div>
+        <div class="pause-pill"><strong>5,95 €</strong><span>pro Pausenmonat</span></div>
+      </div>
+
+      <div class="conditions">Bei Wiederaufnahme nach einer Zahlpause beginnt eine neue Mindestlaufzeit von 3 Monaten.</div>
     </div>
   </section>
 
   <section class="cta">
     <div class="wrap cta-inner">
-      <div class="eyebrow" style="color:var(--green2)">Interesse?</div>
-      <h2>TreffPilot unverbindlich kennenlernen</h2>
-      <p>Aktuell geht es darum, gemeinsam mit Vereinen herauszufinden, welche Funktionen in der Praxis besonders wichtig sind. Eine kurze Nachricht genügt.</p>
-      <p class="email">info@treffpilot.de</p>
-      <a class="btn" href="mailto:info@treffpilot.de?subject=Interesse%20an%20TreffPilot&body=Hallo%20Herr%20Fischer,%0A%0Awir%20haben%20Interesse%20an%20TreffPilot.%0A">Interesse per E-Mail melden</a>
+      <div class="eyebrow" style="color:var(--green2)">Einfach ausprobieren</div>
+      <h2>Teste TreffPilot 90 Minuten kostenlos</h2>
+      <p>Starte direkt deine persönliche TreffPilot-Demo und probiere die Anwendung in Ruhe selbst aus – ohne vorherige Anfrage.</p>
+      <a class="btn" href="https://treffpilotkundenadminneu.broken-poetry-5e9a.workers.dev/?demo=start">Kostenlose 90-Minuten-Demo starten</a>
+      <p style="margin-top:24px">Du hast vorher eine Frage? Schreib uns einfach an <span class="email">info@treffpilot.de</span>.</p>
     </div>
   </section>
 </main>
